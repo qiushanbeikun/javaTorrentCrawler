@@ -1,4 +1,5 @@
 import Model.AnimeCrawler;
+import Model.GameCrawler;
 import Model.PornCrawler;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
@@ -99,23 +100,21 @@ public class MainInterface extends JFrame implements ActionListener {
                 } else {
                     switch (type) {
                         case "Anime":
-                            // todo
                             errorPane.setText("No errors so far");
                             AnimeCrawler animeCrawler = new AnimeCrawler(content);
                             animeCrawler.startSearch();
                             break;
                         case "Games":
-                            // todo
+                            GameCrawler gameCrawler = new GameCrawler(content);
+                            gameCrawler.startSearch();
                             errorPane.setText("No errors so far");
                             break;
                         case "Vehicle License":
-                            // todo
                             PornCrawler pornCrawler = new PornCrawler(content);
                             pornCrawler.startSearch();
                             errorPane.setText("No errors so far");
                             break;
                         case "Other resources that I can offer":
-                            // todo
                             errorPane.setText("No errors so far");
                             break;
                         default:
