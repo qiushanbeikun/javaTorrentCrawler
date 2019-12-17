@@ -36,6 +36,7 @@ public class GameCrawler {
 
         try {
             Document document = Jsoup.connect(url).get();
+
             Elements tableElements = document.select("table");
             Elements tableHeaderEles = tableElements.select("thead tr th");
             for (int i = 0; i < tableHeaderEles.size(); i++) {
