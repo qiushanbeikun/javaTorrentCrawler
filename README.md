@@ -1,0 +1,2 @@
+# javaTorrentCrawler  
+dependecies: Jsoup   
