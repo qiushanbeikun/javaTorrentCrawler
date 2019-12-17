@@ -5,17 +5,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
 
-public class AnimeCrawler extends Crawler{
-
+public class PornCrawler extends Crawler{
     private String input;
-    private final String NYAA_SEARCH_URL = "https://nyaa.si/?f=0&c=0_0&q=";
-    private final String NYAA_DOWNLOAD_URL = "https://nyaa.si";
-
+    private final String SUKEBEI_SEARCH_URL = "https://sukebei.nyaa.si/?f=0&c=0_0&q=";
+    private final String SUKEBEI_VIEW_URL = "https://sukebei.nyaa.si/";
 
     /**
+     * SUKEBEI has almost the same structure of nyaa, the code in this page will be much similar with the anime page
      * SPEC about the String array array
      * each string array contains the info of the source
      * 0 the detailed site page on nyaa.si
@@ -30,14 +28,13 @@ public class AnimeCrawler extends Crawler{
 
     private String[][] arrays = new String[1000][];
 
-    public AnimeCrawler(String input) {
+    public PornCrawler(String input) {
         this.input = inputParser(input);
-        // this.startSearch();
     }
 
     public void startSearch () {
 
-        String url = NYAA_SEARCH_URL + this.input + "&s=size&o=desc";
+        String url = SUKEBEI_SEARCH_URL + this.input + "&s=size&o=desc";
 
         try {
             Document document = Jsoup.connect(url).get();
@@ -62,7 +59,7 @@ public class AnimeCrawler extends Crawler{
                     eachResult[j] = rowItems.get(j).text();
                 }
                 // System.out.println(rowItems.get(2).select("a").get(1).attr("href").split("&")[0]);
-                eachResult[0] = NYAA_DOWNLOAD_URL + rowItems.get(1).select("a").attr("href");
+                eachResult[0] = SUKEBEI_VIEW_URL + rowItems.get(1).select("a").attr("href");
                 eachResult[2] = rowItems.get(2).select("a").get(1).attr("href").split("&")[0];
                 for (String string :
                         eachResult) {
@@ -76,6 +73,5 @@ public class AnimeCrawler extends Crawler{
         }
 
     }
-
 
 }
