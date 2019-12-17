@@ -1,19 +1,18 @@
 package Model;
 
-import javax.swing.text.html.HTML;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AnimeCrawler {
 
     private String input;
-    private final String NYAA_URL = "https://nyaa.si/?f=0&c=0_0&q=";
-
-    String fileName = "D:\\HTMLCache\\" + "nyaa_" + this.input + ".html";
+    private final String NYAA_SEARCH_URL = "https://nyaa.si/?f=0&c=0_0&q=";
+    private final String NYAA_VIEW_URL = "https://nyaa.si";
 
     public AnimeCrawler(String input) {
         this.input = inputParser(input);
@@ -36,37 +35,36 @@ public class AnimeCrawler {
     }
 
     private void startSearch () {
-        
+
+        String url = NYAA_SEARCH_URL + this.input + "&s=size&o=desc";
 
         try {
-            URL url = new URL(NYAA_URL + this.input);
-            URLConnection conn = url.openConnection();
+            Document document = Jsoup.connect(url).get();
+            Elements tableElements = document.select("table");
 
-            // open the stream and put it into BufferedReader
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-
-            String inputLine;
-            while ((inputLine = br.readLine()) != null) {
-                System.out.println(inputLine);
-                bw.write(inputLine);
-                bw.newLine();
+            Elements tableHeaderEles = tableElements.select("thead tr th");
+            for (int i = 0; i < tableHeaderEles.size(); i++) {
+                System.out.println(tableHeaderEles.get(i).text());
             }
-            br.close();
-            bw.close();
+            System.out.println();
 
-            System.out.println("Done");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Elements tableRowElements = tableElements.select(":not(thead) tr");
+
+            for (int i = 0; i < tableRowElements.size(); i++) {
+                Element row = tableRowElements.get(i);
+                System.out.println("row" + i);
+                Elements rowItems = row.select("td");
+                System.out.println(rowItems.size());
+                for (int j = 0; j < rowItems.size(); j++) {
+                    System.out.println(rowItems.get(j).text());
+                }
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void HTMLParser(){
 
     }
-
 
 
 }

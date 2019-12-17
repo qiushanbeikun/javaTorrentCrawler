@@ -90,36 +90,40 @@ public class MainInterface extends JFrame implements ActionListener {
         String type = (String) selectType.getSelectedItem();
         String content = searchContent.getText();
 
-        if (e.getSource() == go) {
+        try {
+            if (e.getSource() == go) {
 
-            if (type == null || content == null) {
-                errorPane.setText("please check type and content");
-            } else {
-                switch (type) {
-                    case "Anime":
-                        // todo
-                        errorPane.setText("No errors so far");
-                        AnimeCrawler animeCrawler = new AnimeCrawler(content);
-                        break;
-                    case "Games":
-                        // todo
-                        errorPane.setText("No errors so far");
-                        break;
-                    case "Vehicle License":
-                        // todo
-                        errorPane.setText("No errors so far");
-                        break;
-                    case "Other resources that I can offer":
-                        // todo
-                        errorPane.setText("No errors so far");
-                        break;
-                    default:
-                        errorPane.setText("the error should not happen at switch");
+                if (type == null || content == null) {
+                    errorPane.setText("please check type and content");
+                } else {
+                    switch (type) {
+                        case "Anime":
+                            // todo
+                            errorPane.setText("No errors so far");
+                            AnimeCrawler animeCrawler = new AnimeCrawler(content);
+                            break;
+                        case "Games":
+                            // todo
+                            errorPane.setText("No errors so far");
+                            break;
+                        case "Vehicle License":
+                            // todo
+                            errorPane.setText("No errors so far");
+                            break;
+                        case "Other resources that I can offer":
+                            // todo
+                            errorPane.setText("No errors so far");
+                            break;
+                        default:
+                            errorPane.setText("the error should not happen at switch");
+                    }
                 }
-            }
 
-        } else {
-            errorPane.setText("this error should not happen");
+            } else {
+                errorPane.setText("this error should not happen");
+            }
+        }catch (Error error) {
+            errorPane.setText("there is error caught here" + error);
         }
 
     }
