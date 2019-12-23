@@ -103,6 +103,7 @@ public class MainInterface extends JFrame implements ActionListener {
                             errorPane.setText("No errors so far");
                             AnimeCrawler animeCrawler = new AnimeCrawler(content);
                             animeCrawler.startSearch();
+                            //todo the show list requires the returned of startSearch
                             break;
                         case "Games":
                             GameCrawler gameCrawler = new GameCrawler(content);

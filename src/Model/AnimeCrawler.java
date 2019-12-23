@@ -35,7 +35,7 @@ public class AnimeCrawler extends Crawler{
         // this.startSearch();
     }
 
-    public void startSearch () {
+    public String startSearch () {
 
         String url = NYAA_SEARCH_URL + this.input + "&s=size&o=desc";
 
@@ -55,14 +55,14 @@ public class AnimeCrawler extends Crawler{
                 Element row = tableRowElements.get(i);
                 System.out.println("row@ " + i);
                 Elements rowItems = row.select("td");
-                System.out.println(rowItems.size());
+                // System.out.println(rowItems.size());
                 String[] eachResult = new String[8];
                 for (int j = 0; j < rowItems.size(); j++) {
                     // System.out.println(rowItems.get(j).text());
                     eachResult[j] = rowItems.get(j).text();
                 }
                 // System.out.println(rowItems.get(2).select("a").get(1).attr("href").split("&")[0]);
-                eachResult[0] = NYAA_DOWNLOAD_URL + rowItems.get(1).select("a").attr("href");
+                eachResult[0] = NYAA_DOWNLOAD_URL + rowItems.get(1).select("a").attr("href").split("#")[0];
                 eachResult[2] = rowItems.get(2).select("a").get(1).attr("href").split("&")[0];
                 for (String string :
                         eachResult) {
@@ -75,6 +75,22 @@ public class AnimeCrawler extends Crawler{
             e.printStackTrace();
         }
 
+        return animeSelector(arrays);
+
+    }
+
+    /**
+     * @param resultList the string array array containing the search result
+     * @return a string in form of content^content^content
+     * content form: contentCharacter$index
+     * contentCharacter is one of "1080p" "720" "blue-ray"
+     */
+    private String animeSelector(String[][] resultList){
+        return "123";
+    }
+
+    private boolean seedHealthyCheck(){
+        return false;
     }
 
 
